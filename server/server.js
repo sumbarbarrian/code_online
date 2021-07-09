@@ -13,7 +13,7 @@ server.get('/create', (req, res) => {
 })
 
 /**
- *  this endpoint closes session
+ *  This endpoint closes session
  */
 server.get('/close', (req, res) => {
     console.log('close session')
