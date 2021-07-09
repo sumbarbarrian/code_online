@@ -5,7 +5,7 @@ const server = express()
 
 
 /**
- *  this endpoint opens session
+ *  This endpoint opens session
  */
 server.get('/create', (req, res) => {
     console.log('create session')
