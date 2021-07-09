@@ -22,6 +22,9 @@ server.get('/close', (req, res) => {
 
 const socket = new ws.Server({ server })
 
+/**
+ * ws for messages
+ */
 socket.on('connection', ws => {
     ws.on('message', message => {
         ws.clients.forEach(  )
