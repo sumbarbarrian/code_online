@@ -29,6 +29,7 @@ socket.on('connection', ws => {
     ws.on('message', message => {
         //iterate over all clients
         //one new comment
+        //new branch comment
         ws.clients.forEach(  )
     })
 })
