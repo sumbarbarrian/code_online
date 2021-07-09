@@ -27,6 +27,7 @@ const socket = new ws.Server({ server })
  */
 socket.on('connection', ws => {
     ws.on('message', message => {
+        //iterate over all clients
         ws.clients.forEach(  )
     })
 })
