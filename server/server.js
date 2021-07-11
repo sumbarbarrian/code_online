@@ -13,7 +13,10 @@ server.get('/create', (req, res) => {
     const { v4: uuidv4 } = require('uuid');
     var newUuid = uuidv4();
     console.log(newUuid);
-    var obj = { sessionId : newUuid, closeToken: "token" };
+
+    var unicCloseToken = uuidv4();
+    console.log(unicCloseToken)
+    var obj = { sessionId : newUuid, closeToken: unicCloseToken };
     //написать метод, который сгенерирует уникальный айди и сохранить его
     console.log('create session')
     res.send(JSON.stringify(obj))
