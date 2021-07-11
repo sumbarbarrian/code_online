@@ -10,8 +10,10 @@ server.use('*', cors())
  *  this endpoint opens session
  */
 server.get('/create', (req, res) => {
-    var id = 1;
-    var obj = { sessionId : 1, closeToken: "token" };
+    const { v4: uuidv4 } = require('uuid');
+    var newUuid = uuidv4();
+    console.log(newUuid);
+    var obj = { sessionId : newUuid, closeToken: "token" };
     //написать метод, который сгенерирует уникальный айди и сохранить его
     console.log('create session')
     res.send(JSON.stringify(obj))
