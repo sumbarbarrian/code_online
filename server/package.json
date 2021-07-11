@@ -5,11 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "test",
-    "start": "node server.js"
+    "start": "node server.js",
+    "ui-start": "cd ../ui && npm run start",
+    "all": "concurrently \"npm:start\" \"npm:ui-start\""
   },
   "author": "mscherbakov",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "ws": "^7.4.6"
   },

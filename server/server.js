@@ -1,9 +1,11 @@
 const express = require('express')
 const ws = require('ws')
+const cors = require('cors')
 const server = express()
 
+server.use('*', cors()) 
 
-
+  
 /**
  *  this endpoint opens session
  */
@@ -20,6 +22,9 @@ server.get('/close', (req, res) => {
     res.send()
 })
 
+server.listen(8081, () => {
+    console.info('Server started')
+})
 const socket = new ws.Server({ server })
 
 /**
