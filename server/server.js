@@ -10,9 +10,14 @@ server.use('*', cors())
  *  this endpoint opens session
  */
 server.get('/create', (req, res) => {
+    var id = 1;
+    var obj = { sessionId : 1, closeToken: "token" };
+    //написать метод, который сгенерирует уникальный айди и сохранить его
     console.log('create session')
-    res.send()
+    res.send(JSON.stringify(obj))
 })
+
+
 
 /**
  *  this endpoint closes session
@@ -33,7 +38,6 @@ const socket = new ws.Server({ server })
 socket.on('connection', ws => {
     ws.on('message', message => {
         //iterate over all clients
-        //new branch comment
         ws.clients.forEach(  )
     })
 })
