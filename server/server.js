@@ -2,7 +2,7 @@ const express = require('express')
 const ws = require('ws')
 const cors = require('cors')
 const server = express()
-
+let map = new map(); //creating map for uuid as key and token as value
 server.use('*', cors()) 
 
   
@@ -11,13 +11,15 @@ server.use('*', cors())
  */
 server.get('/create', (req, res) => {
     const { v4: uuidv4 } = require('uuid');
-    var newUuid = uuidv4();
+    var newUuid = uuidv4(); //generating unic id
     console.log(newUuid);
 
-    var unicCloseToken = uuidv4();
+    var unicCloseToken = uuidv4(); //generating unic token
     console.log(unicCloseToken)
     var obj = { sessionId : newUuid, closeToken: unicCloseToken };
-    //написать метод, который сгенерирует уникальный айди и сохранить его
+    
+    map.set(newUuid, unicCloseToken); //saving uuid and token in map
+
     console.log('create session')
     res.send(JSON.stringify(obj))
 })
