@@ -2,7 +2,8 @@ const express = require('express')
 const ws = require('ws')
 const cors = require('cors')
 const server = express()
-let map = new map(); //creating map for uuid as key and token as value
+const { v4: uuidv4 } = require('uuid');
+let map = new Map(); //creating map for uuid as key and token as value
 server.use('*', cors()) 
 
   
@@ -10,7 +11,6 @@ server.use('*', cors())
  *  this endpoint opens session
  */
 server.get('/create', (req, res) => {
-    const { v4: uuidv4 } = require('uuid');
     var newUuid = uuidv4(); //generating unic id
     console.log(newUuid);
 
