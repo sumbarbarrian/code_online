@@ -6,19 +6,26 @@ const { v4: uuidv4 } = require('uuid');
 let map = new Map(); //creating map for uuid as key and token as value
 server.use('*', cors()) 
 
-  
+const setUUID = (newUuid, unicCloseToken) => {
+  map.set(newUuid, unicCloseToken); //saving uuid and token in map
+}
+
+const createObj = (newUuid, unicCloseToken) => {
+    return { sessionId : newUuid, closeToken: unicCloseToken };
+}
+
 /**
  *  this endpoint opens session
  */
 server.get('/create', (req, res) => {
-    var newUuid = uuidv4(); //generating unic id
+    const newUuid = uuidv4(); //generating unic id
     console.log(newUuid);
 
-    var unicCloseToken = uuidv4(); //generating unic token
+    const unicCloseToken = uuidv4(); //generating unic token
     console.log(unicCloseToken)
-    var obj = { sessionId : newUuid, closeToken: unicCloseToken };
+    const obj = createObj(newUuid, unicCloseToken);
     
-    map.set(newUuid, unicCloseToken); //saving uuid and token in map
+    setUUID(newUuid)
 
     console.log('create session')
     res.send(JSON.stringify(obj))
