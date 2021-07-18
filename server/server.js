@@ -19,15 +19,11 @@ const createObj = (newUuid, unicCloseToken) => {
  */
 server.get('/create', (req, res) => {
     const newUuid = uuidv4(); //generating unic id
-    console.log(newUuid);
-
     const unicCloseToken = uuidv4(); //generating unic token
-    console.log(unicCloseToken)
     const obj = createObj(newUuid, unicCloseToken);
     
     setUUID(newUuid)
-
-    console.log('create session')
+console.log('create session')
     res.send(JSON.stringify(obj))
 })
 
