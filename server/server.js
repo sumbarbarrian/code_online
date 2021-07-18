@@ -4,6 +4,7 @@ const cors = require('cors')
 const server = express()
 const { v4: uuidv4 } = require('uuid');
 let map = new Map(); //creating map for uuid as key and token as value
+var mainUser; //creating user
 server.use('*', cors()) 
 
   
@@ -16,12 +17,12 @@ server.get('/create', (req, res) => {
 
     var unicCloseToken = uuidv4(); //generating unic token
     console.log(unicCloseToken)
-    var obj = { sessionId : newUuid, closeToken: unicCloseToken };
+    mainUser = { sessionId : newUuid, closeToken: unicCloseToken };
     
     map.set(newUuid, unicCloseToken); //saving uuid and token in map
 
     console.log('create session')
-    res.send(JSON.stringify(obj))
+    res.send(JSON.stringify(mainUser))
 })
 
 
@@ -30,8 +31,17 @@ server.get('/create', (req, res) => {
  *  this endpoint closes session
  */
 server.get('/close', (req, res) => {
-    console.log('close session')
-    res.send()
+    var closeId = unicCloseToken;
+    if (closeId == mainUser.closeToken){
+       console.log('close session')
+       res.send() 
+    }
+
+    else if (closeId == null){
+        res.status(404).send({errorMessage: 'Session does not exist'});
+
+    }
+    
 })
 
 server.listen(8081, () => {
