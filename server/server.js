@@ -31,7 +31,7 @@ server.get('/create', (req, res) => {
  *  this endpoint closes session
  */
 server.get('/close', (req, res) => {
-    var closeId = unicCloseToken;
+    var closeId;
     if (closeId == mainUser.closeToken){
        console.log('close session')
        res.send() 
