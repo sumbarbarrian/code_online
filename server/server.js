@@ -4,7 +4,7 @@ const cors = require('cors')
 const server = express()
 const { v4: uuidv4 } = require('uuid');
 let map = new Map(); //creating map for uuid as key and token as value
-var mainUser; //creating user
+let mainUser; //creating user
 server.use('*', cors()) 
 
   
