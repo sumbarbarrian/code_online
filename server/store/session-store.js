@@ -66,6 +66,7 @@ class SessionStoreInternal extends SessionStore {
             if (session.closeId === closeId) {
                 return session 
             }
+            else return null;
         }
     }
 

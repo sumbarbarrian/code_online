@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const SessionStorage = require('../../store/session-store')
 describe('SessionStore', () => {
 
-  it('sessionStrore does exist', async () => {
+  it('sessionStore does exist', async () => {
     const sessionStore = await SessionStorage.get()
     expect(sessionStore).to.be.not.null
   })

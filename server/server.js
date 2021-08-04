@@ -1,30 +1,31 @@
 const express = require('express')
 const ws = require('ws')
 const cors = require('cors')
+const SessionStore = require("./store/session-store");
 const server = express()
 const { v4: uuidv4 } = require('uuid');
-let map = new Map(); //creating map for uuid as key and token as value
-server.use('*', cors()) 
+server.use('*', cors())
 
-const setUUID = (newUuid, unicCloseToken) => {
-  map.set(newUuid, unicCloseToken); //saving uuid and token in map
-}
-
-const createObj = (newUuid, unicCloseToken) => {
-    return { sessionId : newUuid, closeToken: unicCloseToken };
-}
-
+  
 /**
  *  this endpoint opens session
  */
 server.get('/create', (req, res) => {
-    const newUuid = uuidv4(); //generating unic id
-    const unicCloseToken = uuidv4(); //generating unic token
-    const obj = createObj(newUuid, unicCloseToken);
-    
-    setUUID(newUuid)
-console.log('create session')
-    res.send(JSON.stringify(obj))
+    let newUuid = uuidv4(); //generating unic id
+    console.log(newUuid);
+
+    let unicCloseToken = uuidv4(); //generating unic token
+    console.log(unicCloseToken)
+
+    let promiseStore = SessionStore.get();
+    promiseStore.then((store) => {
+        store.create(newUuid, unicCloseToken);
+        console.log('create session')
+        let view = { sessionId : newUuid, closeToken: unicCloseToken }
+        res.send(JSON.stringify(view));
+    })
+
+
 })
 
 
@@ -32,9 +33,24 @@ console.log('create session')
 /**
  *  this endpoint closes session
  */
-server.get('/close', (req, res) => {
-    console.log('close session')
-    res.send()
+server.get('/close/:closeId', (req, res) => {
+    let promiseStore = SessionStore.get();
+    promiseStore.then((store) => {
+        let closeId = req.params.closeId;
+        let closeSession = store.getByCloseId(closeId);
+
+        if (closeSession != null){
+            store.remove(closeSession.uuid)
+            res.status(201).send()
+        }
+
+        else if (closeSession == null){
+            res.status(404).send({errorMessage: 'Session does not exist'});
+
+        }
+
+    })
+
 })
 
 server.listen(8081, () => {
